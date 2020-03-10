@@ -60,6 +60,19 @@ def expand_bb(x, y, w, h, img, factor):
 	
 	return tlx, tly, brx-tlx, bry-tly
 
+def get_face_coords(img):
+	#extracting faces
+	gray = cv2.cvtColor(img.copy(), cv2.COLOR_BGR2GRAY)
+	faces = faceCascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, flags=cv2.CASCADE_SCALE_IMAGE)
+
+	#finding the largest face
+	sz = faces[:, 2] * faces[:, 3]
+	face_ind = np.argmax(sz)
+	x, y, w, h = faces[face_ind, :]
+
+	#expanding the bounding box
+	return expand_bb(x, y, w, h, img, 0.2)	
+
 def findhist(img, bins):
 	# hist = []
 	# for i in range(img.shape[2]):
@@ -74,42 +87,29 @@ def low_level(img):
 	
 	#extracting faces
 	gray = cv2.cvtColor(img.copy(), cv2.COLOR_BGR2GRAY)
-	faces = faceCascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, flags=cv2.CASCADE_SCALE_IMAGE)
-
-	#finding the largest face
-	sz = faces[:, 2] * faces[:, 3]
-	face_ind = np.argmax(sz)
-	x, y, w, h = faces[face_ind, :]
-
-	#expanding the bounding box
-	x, y, w, h = expand_bb(x, y, w, h, img, 0.1)
-
-	faceimg = img[y:y+h, x:x+w, :]
+	x, y, w, h = get_face_coords(img)
+	unrotated_face = img[y:y+h, x:x+w]
 
 	#predicting facial landmarks
-	shape = landmarkPredictor(faceimg, dlib.rectangle(0, 0, w, h))
+	shape = landmarkPredictor(gray, dlib.rectangle(x, y, x+w, y+h))
 	shape = face_utils.shape_to_np(shape)
 
-##############################################################################
-
+	# Affine transformation
 	# extract the left and right eye (x, y)-coordinates
 	(lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
 	(rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
 	leftEyePts = shape[lStart:lEnd]
 	rightEyePts = shape[rStart:rEnd]
-
 	# compute the center of mass for each eye
 	leftEyeCenter = leftEyePts.mean(axis=0).astype("int")
 	rightEyeCenter = rightEyePts.mean(axis=0).astype("int")
-	
 	# compute the angle between the eye centroids
 	dY = rightEyeCenter[1] - leftEyeCenter[1]
 	dX = rightEyeCenter[0] - leftEyeCenter[0]
 	angle = np.degrees(np.arctan2(dY, dX)) - 180
-
 	desiredLeftEye=(0.35, 0.35)
-	desiredFaceWidth=256
-	desiredFaceHeight=256
+	desiredFaceWidth=200
+	desiredFaceHeight=200
 	# compute the desired right eye x-coordinate based on the
 	# desired x-coordinate of the left eye
 	desiredRightEyeX = 1.0 - desiredLeftEye[0]
@@ -121,7 +121,6 @@ def low_level(img):
 	desiredDist = (desiredRightEyeX - desiredLeftEye[0])
 	desiredDist *= desiredFaceWidth
 	scale = desiredDist / dist
-
 	# compute center (x, y)-coordinates (i.e., the median point)
 	# between the two eyes in the input image
 	eyesCenter = ((leftEyeCenter[0] + rightEyeCenter[0]) // 2,
@@ -133,18 +132,20 @@ def low_level(img):
 	tY = desiredFaceHeight * desiredLeftEye[1]
 	M[0, 2] += (tX - eyesCenter[0])
 	M[1, 2] += (tY - eyesCenter[1])
-
 	# apply the affine transformation
 	(w, h) = (desiredFaceWidth, desiredFaceHeight)
-	faceimg = cv2.warpAffine(faceimg, M, (w, h),
+	faceimg = cv2.warpAffine(img, M, (w, h),
 		flags=cv2.INTER_CUBIC)
 
-#########################################################################3
+	if VIS:
+		fig, ax = plt.subplots(1, 2)
+		ax[0].imshow(unrotated_face[:, :, ::-1])
+		ax[0].title.set_text("Original")
+		ax[1].imshow(faceimg[:, :, ::-1])
+		ax[1].title.set_text("Affine Tranformed")
+		plt.show()
 
-	plt.imshow(faceimg[:, :, ::-1])
-	plt.show()
-
-	#predicting facial landmarks
+	#predicting facial landmarks again in the transformed image
 	shape = landmarkPredictor(faceimg, dlib.rectangle(0, 0, w, h))
 	shape = face_utils.shape_to_np(shape)
 
@@ -168,6 +169,7 @@ def low_level(img):
 	regions["eyes"] = [rx, ry, rw, rh]
 	regions["full"] = [0, 0, faceimg.shape[1], faceimg.shape[0]]
 	del(regions["left_eye"], regions["right_eye"], regions["left_eyebrow"], regions["right_eyebrow"])
+
 
 	#extracting region wise features
 	features = {}
@@ -229,5 +231,5 @@ def low_level(img):
 
 	return features
 
-img = "Train_Set/Adelina_Avila_1.jpg"
+img = "Train_Set/Ziwang_Xu_1.jpg"
 low_level(cv2.imread(img))
