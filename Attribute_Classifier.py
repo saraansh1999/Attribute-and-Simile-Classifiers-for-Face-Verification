@@ -29,7 +29,7 @@ for name in Train_Files:
 				cnt+=1
 			print(cnt)
 			once=2	
-		pixels=np.load("./Features2/"+x+".npy")
+		pixels=np.load("./Features3/"+x+".npy")
 		X_train.append(pixels)
 	except:
 		pass	
@@ -38,7 +38,7 @@ for name in Test_Files:
 	x=name.strip('.jpg')
 	try:
 		Y_test.append(float(Attributes[x][trait]))	
-		pixels=np.load("./Features2/"+x+".npy")
+		pixels=np.load("./Features3/"+x+".npy")
 		X_test.append(pixels)
 	except:
 		pass	
@@ -82,7 +82,7 @@ svm.fit(X_train,Y_train)
 
 fil=trait+".pkl"
 
-joblib.dump(clf, "./Att_Classifiers/"+fil)
+joblib.dump(svm, "./Att_Classifiers/"+fil)
 
 Y_pred = svm.predict(X_test)
 
