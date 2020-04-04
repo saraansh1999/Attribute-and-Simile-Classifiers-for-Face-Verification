@@ -5,7 +5,7 @@ import dlib
 import copy
 from imutils import face_utils
 from matplotlib import pyplot as plt
-
+import os
 cascPath = "./haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
 landmarkPath = "./shape_predictor_68_face_landmarks.dat"
@@ -66,9 +66,14 @@ def get_face_coords(img):
 	faces = faceCascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, flags=cv2.CASCADE_SCALE_IMAGE)
 
 	#finding the largest face
-	sz = faces[:, 2] * faces[:, 3]
-	face_ind = np.argmax(sz)
-	x, y, w, h = faces[face_ind, :]
+	try:
+		sz = faces[:, 2] * faces[:, 3]
+
+		face_ind = np.argmax(sz)
+		x, y, w, h = faces[face_ind, :]
+	except:	
+		x,y,w,h=img.shape[0],0,img.shape[1],img.shape[0]
+		# print(len(faces))
 
 	#expanding the bounding box
 	return expand_bb(x, y, w, h, img, 0.2)	
@@ -87,6 +92,7 @@ def low_level(img):
 	
 	#extracting faces
 	gray = cv2.cvtColor(img.copy(), cv2.COLOR_BGR2GRAY)
+	# print(gray.shape)
 	x, y, w, h = get_face_coords(img)
 	unrotated_face = img[y:y+h, x:x+w]
 
@@ -137,13 +143,13 @@ def low_level(img):
 	faceimg = cv2.warpAffine(img, M, (w, h),
 		flags=cv2.INTER_CUBIC)
 
-	if VIS:
-		fig, ax = plt.subplots(1, 2)
-		ax[0].imshow(unrotated_face[:, :, ::-1])
-		ax[0].title.set_text("Original")
-		ax[1].imshow(faceimg[:, :, ::-1])
-		ax[1].title.set_text("Affine Tranformed")
-		plt.show()
+	# if VIS:
+	# 	fig, ax = plt.subplots(1, 2)
+	# 	ax[0].imshow(unrotated_face[:, :, ::-1])
+	# 	ax[0].title.set_text("Original")
+	# 	ax[1].imshow(faceimg[:, :, ::-1])
+	# 	ax[1].title.set_text("Affine Tranformed")
+	# 	plt.show()
 
 	#predicting facial landmarks again in the transformed image
 	shape = landmarkPredictor(faceimg, dlib.rectangle(0, 0, w, h))
@@ -181,55 +187,84 @@ def low_level(img):
 
 		#RGB features
 		# print(regions[key])
-		features[key+"_RGB"] = findhist(normalize(regions[key], 'channelwise_max_min'), r)
+		features[key+"_RGB"] = findhist(normalize(regions[key], 'standardization'), r)
 
 		# # HSV features
-		features[key+"_HSV"] = findhist(normalize(cv2.cvtColor(regions[key], cv2.COLOR_BGR2HSV), 'channelwise_max_min'), r)
+		features[key+"_HSV"] = findhist(normalize(cv2.cvtColor(regions[key], cv2.COLOR_BGR2HSV), 'standardization'), r)
 
 		# #gradient features
 		gray = cv2.cvtColor(regions[key], cv2.COLOR_BGR2GRAY)
 		gx = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=5)
 		gy = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=5)
-		gradMag = normalize(np.sqrt(np.square(gx) + np.square(gy)), "max_min")
+		gradMag = normalize(np.sqrt(np.square(gx) + np.square(gy)), "standardization")
 		features[key+"_gradientMagnitude"] = findhist(gradMag, r)		
-		gradOri = normalize(np.arctan2(gy, gx), "max_min")
+		gradOri = normalize(np.arctan2(gy, gx), "standardization")
 		# features[key+"_gradientOrientation"], _ = [np.mean(gradOri), np.std(gradOri)]
 		features[key+"_gradientOrientation"] = findhist(gradOri, r)
 		
 		#visualising everything
 		if(VIS):
-			fig, ax = plt.subplots(3, 2)
-			ax[0, 0].imshow(regions[key][:, :, ::-1])
-			ax[0, 0].title.set_text(key)
-			ax[0, 1].hist(r[:-1], weights=features[key+"_RGB"], bins=r)
-			ax[0, 1].title.set_text(key+"_RGB")
-			ax[1, 0].hist(r[:-1], weights=features[key+"_HSV"], bins=r)
-			ax[1, 0].title.set_text(key+"_HSV")
-			ax[1, 1].hist(r[:-1], weights=features[key+"_gradientMagnitude"], bins=r)
-			ax[1, 1].title.set_text(key+"_gradientMagnitude")
-			ax[2, 0].hist(r[:-1], weights=features[key+"_gradientOrientation"], bins=r)
-			ax[2, 0].title.set_text(key+"_gradientOrientation")
-			ax[2, 1].imshow(gradMag)
-			ax[2, 1].title.set_text("Gradient image")
-			plt.show()
+			pass
+			# fig, ax = plt.subplots(3, 2)
+			# ax[0, 0].imshow(regions[key][:, :, ::-1])
+			# ax[0, 0].title.set_text(key)
+			# ax[0, 1].hist(r[:-1], weights=features[key+"_RGB"], bins=r)
+			# ax[0, 1].title.set_text(key+"_RGB")
+			# ax[1, 0].hist(r[:-1], weights=features[key+"_HSV"], bins=r)
+			# ax[1, 0].title.set_text(key+"_HSV")
+			# ax[1, 1].hist(r[:-1], weights=features[key+"_gradientMagnitude"], bins=r)
+			# ax[1, 1].title.set_text(key+"_gradientMagnitude")
+			# ax[2, 0].hist(r[:-1], weights=features[key+"_gradientOrientation"], bins=r)
+			# ax[2, 0].title.set_text(key+"_gradientOrientation")
+			# ax[2, 1].imshow(gradMag)
+			# ax[2, 1].title.set_text("Gradient image")
+			# plt.show()
 
 
 	features["gradimg"] = cv2.resize(gradMag, (SZ, SZ)).flatten()
 	features["grayimg"] = cv2.resize(gray, (SZ, SZ)).flatten()
 	if(VIS):
-		fig, ax = plt.subplots(1, 2)
-		ax[0].imshow(np.reshape(features["grayimg"], (SZ, SZ)))
-		ax[0].title.set_text("Grayscale")
-		ax[1].imshow(np.reshape(features["gradimg"], (SZ, SZ)))
-		ax[1].title.set_text("Gradient Image")
-		plt.show()
+		pass
+		# fig, ax = plt.subplots(1, 2)
+		# ax[0].imshow(np.reshape(features["grayimg"], (SZ, SZ)))
+		# ax[0].title.set_text("Grayscale")
+		# ax[1].imshow(np.reshape(features["gradimg"], (SZ, SZ)))
+		# ax[1].title.set_text("Gradient Image")
+		# plt.show()
 
 
 	# 250 x 2 = 500   images
 	# 250 x 4 x 4 = 4000 histograms
+	V=[]
+	for key in features:
+			V.append(key)
+		# if key!= "gradimg" and key != "grayimg":
+	V.sort()
+	J=np.array([])
+	for i in V:
+		J=np.concatenate((J,features[i]),axis=None)
 
+	return J
 
-	return features
+Files=os.listdir("./Train_Set")
 
-img = "Train_Set/Ziwang_Xu_1.jpg"
-low_level(cv2.imread(img))
+curr=1
+for img in Files:
+	y="./Features2/"+img.strip(".jpg")
+	img = "Train_Set/"+img
+	x=low_level(cv2.imread(img))
+	np.save(y,x)
+	curr+=1
+	a=100*curr/(2*len(Files))
+	print("Progress:","%.2f" % a,"%")
+curr=1
+
+Files=os.listdir("./Test_Set")
+for img in Files:
+	y="./Features2/"+img.strip(".jpg")
+	img = "Test_Set/"+img
+	x=low_level(cv2.imread(img))
+	np.save(y,x)
+	curr+=1
+	a=100*curr/(2*len(Files))
+	print("Progress:","%.2f" % a,"%")
