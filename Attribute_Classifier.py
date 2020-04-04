@@ -6,7 +6,8 @@ from sklearn.metrics import classification_report, confusion_matrix
 import os
 import pickle
 from sklearn.externals import joblib
-
+from sklearn.model_selection import GridSearchCV 
+from sklearn.model_selection import ShuffleSplit
 
 trait='Attractive Woman'
 
@@ -19,7 +20,9 @@ Train_Files=os.listdir("./Train_Set")
 Test_Files=os.listdir("./Test_Set")
 
 once=1
+a1,a2=[],[]
 for name in Train_Files:
+	a1.append(name)
 	x=name.strip('.jpg')
 	try:
 		Y_train.append(float(Attributes[x][trait]))
@@ -29,19 +32,24 @@ for name in Train_Files:
 				cnt+=1
 			print(cnt)
 			once=2	
-		pixels=np.load("./Features3/"+x+".npy")
+		pixels=np.load("./Features2/"+x+".npy")
 		X_train.append(pixels)
 	except:
 		pass	
 
 for name in Test_Files:
+	a2.append(name)
 	x=name.strip('.jpg')
 	try:
 		Y_test.append(float(Attributes[x][trait]))	
-		pixels=np.load("./Features3/"+x+".npy")
+		pixels=np.load("./Features2/"+x+".npy")
 		X_test.append(pixels)
 	except:
 		pass	
+
+# for i in a1:
+# 	if i in a2:
+# 		print("shit")
 
 X_train=np.array(X_train)	
 X_test=np.array(X_test)	
@@ -51,7 +59,7 @@ Y_test=np.array(Y_test)
 # mean_train=np.median(Y_train)
 # mean_test=np.median(Y_test)
 mean_train=0
-mean_test=0
+mean_test= 0
 
 
 # print(len(np.where(Y_train>mean_train)[0]))
@@ -77,7 +85,13 @@ print(len(np.where(Y_train==0)[0]))
 print(len(np.where(Y_test==1)[0]))
 print(len(np.where(Y_test==0)[0]))
 
-svm = SVC(C=1.0, kernel='rbf', degree=3, gamma=0.5, shrinking=True, probability=False, tol=0.001, cache_size=200,  verbose=False)
+param_grid = {'C': [0.1, 1, 10, 100, 1000],  
+              'gamma': [1, 0.1, 0.01, 0.001, 0.0001], 
+              'kernel': ['rbf']}  
+  
+svm = GridSearchCV(SVC(), param_grid, refit = True, verbose = 3) 
+  
+
 svm.fit(X_train,Y_train)
 
 fil=trait+".pkl"
