@@ -7,4 +7,4 @@
 #SBATCH --mincpus=1
 
 python attribute_clf_new.py \
-		--trait $1 | tee attr_clf_$1.txt
+		--trait $1 | tee Att_logs/$1_attr_clf_log.txt

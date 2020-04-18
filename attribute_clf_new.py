@@ -58,7 +58,7 @@ for root, dirs, files in os.walk(train_dir):
 		try:
 			gt = float(Attributes[name][trait]) > 0
 			Y_train.append(gt)
-			features = np.load(fpath)
+			features = np.load(fpath, allow_pickle=True)
 			inp = []
 			for k in features:
 				inp.extend(features[k])
@@ -73,7 +73,7 @@ for root, dirs, files in os.walk(test_dir):
 		try:
 			gt = float(Attributes[name][trait]) > 0
 			Y_test.append(gt)
-			features = np.load(fpath)
+			features = np.load(fpath, allow_pickle=True)
 			inp = []
 			for k in features:
 				inp.extend(features[k])
