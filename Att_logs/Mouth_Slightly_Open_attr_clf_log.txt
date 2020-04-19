@@ -1,0 +1,39 @@
+Trait ->  Mouth Slightly Open
+Train Data Shape ->  (6916, 500)
+Positive samples ->  (3458,)
+Negative samples ->  (3458,)
+Fitting 2 folds for each of 4 candidates, totalling 8 fits
+[CV] C=5, gamma=scale, kernel=rbf ....................................
+[CV] ........ C=5, gamma=scale, kernel=rbf, score=0.734, total=  37.3s
+[CV] C=5, gamma=scale, kernel=rbf ....................................
+[CV] ........ C=5, gamma=scale, kernel=rbf, score=0.732, total=  35.9s
+[CV] C=10, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=10, gamma=scale, kernel=rbf, score=0.731, total=  35.9s
+[CV] C=10, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=10, gamma=scale, kernel=rbf, score=0.725, total=  37.0s
+[CV] C=20, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=20, gamma=scale, kernel=rbf, score=0.715, total=  38.4s
+[CV] C=20, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=20, gamma=scale, kernel=rbf, score=0.711, total=  37.1s
+[CV] C=30, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=30, gamma=scale, kernel=rbf, score=0.709, total=  44.1s
+[CV] C=30, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=30, gamma=scale, kernel=rbf, score=0.707, total=  43.3s
+Best params:  SVC(C=5, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='scale', kernel='rbf',
+    max_iter=-1, probability=True, random_state=None, shrinking=True, tol=0.001,
+    verbose=False)
+Train f1:  0.7333721286343836
+Test Data Shape ->  (2830, 6600)
+Confusion Matrix: 
+ [[1428  433]
+ [ 275  694]]
+              precision    recall  f1-score   support
+
+       False       0.84      0.77      0.80      1861
+        True       0.62      0.72      0.66       969
+
+    accuracy                           0.75      2830
+   macro avg       0.73      0.74      0.73      2830
+weighted avg       0.76      0.75      0.75      2830
+

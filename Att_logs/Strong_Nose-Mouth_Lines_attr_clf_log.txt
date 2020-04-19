@@ -1,0 +1,39 @@
+Trait ->  Strong Nose-Mouth Lines
+Train Data Shape ->  (9746, 500)
+Positive samples ->  (4873,)
+Negative samples ->  (4873,)
+Fitting 2 folds for each of 4 candidates, totalling 8 fits
+[CV] C=5, gamma=scale, kernel=rbf ....................................
+[CV] ........ C=5, gamma=scale, kernel=rbf, score=0.811, total=  53.0s
+[CV] C=5, gamma=scale, kernel=rbf ....................................
+[CV] ........ C=5, gamma=scale, kernel=rbf, score=0.801, total=  52.3s
+[CV] C=10, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=10, gamma=scale, kernel=rbf, score=0.806, total=  52.3s
+[CV] C=10, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=10, gamma=scale, kernel=rbf, score=0.799, total=  51.8s
+[CV] C=20, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=20, gamma=scale, kernel=rbf, score=0.802, total=  52.9s
+[CV] C=20, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=20, gamma=scale, kernel=rbf, score=0.796, total=  52.5s
+[CV] C=30, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=30, gamma=scale, kernel=rbf, score=0.796, total=  53.6s
+[CV] C=30, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=30, gamma=scale, kernel=rbf, score=0.794, total=  53.2s
+Best params:  SVC(C=5, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='scale', kernel='rbf',
+    max_iter=-1, probability=True, random_state=None, shrinking=True, tol=0.001,
+    verbose=False)
+Train f1:  0.8061045300178151
+Test Data Shape ->  (2830, 6600)
+Confusion Matrix: 
+ [[1027  219]
+ [ 349 1235]]
+              precision    recall  f1-score   support
+
+       False       0.75      0.82      0.78      1246
+        True       0.85      0.78      0.81      1584
+
+    accuracy                           0.80      2830
+   macro avg       0.80      0.80      0.80      2830
+weighted avg       0.80      0.80      0.80      2830
+

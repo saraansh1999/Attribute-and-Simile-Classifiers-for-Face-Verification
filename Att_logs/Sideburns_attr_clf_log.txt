@@ -1,0 +1,39 @@
+Trait ->  Sideburns
+Train Data Shape ->  (6422, 500)
+Positive samples ->  (3211,)
+Negative samples ->  (3211,)
+Fitting 2 folds for each of 4 candidates, totalling 8 fits
+[CV] C=5, gamma=scale, kernel=rbf ....................................
+[CV] ........ C=5, gamma=scale, kernel=rbf, score=0.704, total=  33.6s
+[CV] C=5, gamma=scale, kernel=rbf ....................................
+[CV] ........ C=5, gamma=scale, kernel=rbf, score=0.709, total=  33.6s
+[CV] C=10, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=10, gamma=scale, kernel=rbf, score=0.703, total=  33.2s
+[CV] C=10, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=10, gamma=scale, kernel=rbf, score=0.712, total=  32.6s
+[CV] C=20, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=20, gamma=scale, kernel=rbf, score=0.707, total=  32.8s
+[CV] C=20, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=20, gamma=scale, kernel=rbf, score=0.711, total=  32.0s
+[CV] C=30, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=30, gamma=scale, kernel=rbf, score=0.708, total=  31.4s
+[CV] C=30, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=30, gamma=scale, kernel=rbf, score=0.711, total=  26.3s
+Best params:  SVC(C=30, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='scale', kernel='rbf',
+    max_iter=-1, probability=True, random_state=None, shrinking=True, tol=0.001,
+    verbose=False)
+Train f1:  0.7098572838595026
+Test Data Shape ->  (2830, 6600)
+Confusion Matrix: 
+ [[1414  557]
+ [ 268  591]]
+              precision    recall  f1-score   support
+
+       False       0.84      0.72      0.77      1971
+        True       0.51      0.69      0.59       859
+
+    accuracy                           0.71      2830
+   macro avg       0.68      0.70      0.68      2830
+weighted avg       0.74      0.71      0.72      2830
+

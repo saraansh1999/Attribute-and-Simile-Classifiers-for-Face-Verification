@@ -1,0 +1,39 @@
+Trait ->  Receding Hairline
+Train Data Shape ->  (8734, 500)
+Positive samples ->  (4367,)
+Negative samples ->  (4367,)
+Fitting 2 folds for each of 4 candidates, totalling 8 fits
+[CV] C=5, gamma=scale, kernel=rbf ....................................
+[CV] ........ C=5, gamma=scale, kernel=rbf, score=0.767, total=  53.8s
+[CV] C=5, gamma=scale, kernel=rbf ....................................
+[CV] ........ C=5, gamma=scale, kernel=rbf, score=0.754, total=  49.6s
+[CV] C=10, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=10, gamma=scale, kernel=rbf, score=0.763, total=  54.6s
+[CV] C=10, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=10, gamma=scale, kernel=rbf, score=0.751, total=  53.4s
+[CV] C=20, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=20, gamma=scale, kernel=rbf, score=0.754, total=  54.8s
+[CV] C=20, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=20, gamma=scale, kernel=rbf, score=0.745, total=  53.5s
+[CV] C=30, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=30, gamma=scale, kernel=rbf, score=0.750, total=  58.4s
+[CV] C=30, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=30, gamma=scale, kernel=rbf, score=0.735, total=  56.5s
+Best params:  SVC(C=5, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='scale', kernel='rbf',
+    max_iter=-1, probability=True, random_state=None, shrinking=True, tol=0.001,
+    verbose=False)
+Train f1:  0.7603858171180595
+Test Data Shape ->  (2830, 6600)
+Confusion Matrix: 
+ [[ 866  263]
+ [ 364 1337]]
+              precision    recall  f1-score   support
+
+       False       0.70      0.77      0.73      1129
+        True       0.84      0.79      0.81      1701
+
+    accuracy                           0.78      2830
+   macro avg       0.77      0.78      0.77      2830
+weighted avg       0.78      0.78      0.78      2830
+

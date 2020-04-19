@@ -2,34 +2,38 @@ Trait ->  Asian
 Train Data Shape ->  (1506, 500)
 Positive samples ->  (753,)
 Negative samples ->  (753,)
-Fitting 2 folds for each of 3 candidates, totalling 6 fits
-[CV] C=10, gamma=scale, kernel=poly ..................................
-[CV] ...... C=10, gamma=scale, kernel=poly, score=0.742, total=   1.1s
-[CV] C=10, gamma=scale, kernel=poly ..................................
-[CV] ...... C=10, gamma=scale, kernel=poly, score=0.752, total=   1.1s
-[CV] C=20, gamma=scale, kernel=poly ..................................
-[CV] ...... C=20, gamma=scale, kernel=poly, score=0.741, total=   1.3s
-[CV] C=20, gamma=scale, kernel=poly ..................................
-[CV] ...... C=20, gamma=scale, kernel=poly, score=0.754, total=   1.2s
-[CV] C=30, gamma=scale, kernel=poly ..................................
-[CV] ...... C=30, gamma=scale, kernel=poly, score=0.731, total=   1.3s
-[CV] C=30, gamma=scale, kernel=poly ..................................
-[CV] ...... C=30, gamma=scale, kernel=poly, score=0.755, total=   1.3s
-Best params:  SVC(C=20, cache_size=200, class_weight=None, coef0=0.0,
-    decision_function_shape='ovr', degree=3, gamma='scale', kernel='poly',
+Fitting 2 folds for each of 4 candidates, totalling 8 fits
+[CV] C=5, gamma=scale, kernel=rbf ....................................
+[CV] ........ C=5, gamma=scale, kernel=rbf, score=0.728, total=   1.6s
+[CV] C=5, gamma=scale, kernel=rbf ....................................
+[CV] ........ C=5, gamma=scale, kernel=rbf, score=0.745, total=   1.7s
+[CV] C=10, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=10, gamma=scale, kernel=rbf, score=0.723, total=   1.6s
+[CV] C=10, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=10, gamma=scale, kernel=rbf, score=0.729, total=   1.7s
+[CV] C=20, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=20, gamma=scale, kernel=rbf, score=0.723, total=   1.9s
+[CV] C=20, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=20, gamma=scale, kernel=rbf, score=0.704, total=   1.9s
+[CV] C=30, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=30, gamma=scale, kernel=rbf, score=0.721, total=   1.9s
+[CV] C=30, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=30, gamma=scale, kernel=rbf, score=0.709, total=   1.9s
+Best params:  SVC(C=5, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='scale', kernel='rbf',
     max_iter=-1, probability=True, random_state=None, shrinking=True, tol=0.001,
     verbose=False)
-Train f1:  0.7474918614582801
+Train f1:  0.7365769895329077
 Test Data Shape ->  (2830, 6600)
 Confusion Matrix: 
- [[1884  690]
- [  60  196]]
+ [[1900  674]
+ [  55  201]]
               precision    recall  f1-score   support
 
-       False       0.97      0.73      0.83      2574
-        True       0.22      0.77      0.34       256
+       False       0.97      0.74      0.84      2574
+        True       0.23      0.79      0.36       256
 
-    accuracy                           0.73      2830
-   macro avg       0.60      0.75      0.59      2830
-weighted avg       0.90      0.73      0.79      2830
+    accuracy                           0.74      2830
+   macro avg       0.60      0.76      0.60      2830
+weighted avg       0.90      0.74      0.80      2830
 

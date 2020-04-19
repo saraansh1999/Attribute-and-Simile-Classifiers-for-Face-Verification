@@ -1,0 +1,39 @@
+Trait ->  Eyes Open
+Train Data Shape ->  (2824, 500)
+Positive samples ->  (1412,)
+Negative samples ->  (1412,)
+Fitting 2 folds for each of 4 candidates, totalling 8 fits
+[CV] C=5, gamma=scale, kernel=rbf ....................................
+[CV] ........ C=5, gamma=scale, kernel=rbf, score=0.711, total=   5.4s
+[CV] C=5, gamma=scale, kernel=rbf ....................................
+[CV] ........ C=5, gamma=scale, kernel=rbf, score=0.697, total=   5.2s
+[CV] C=10, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=10, gamma=scale, kernel=rbf, score=0.718, total=   5.2s
+[CV] C=10, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=10, gamma=scale, kernel=rbf, score=0.696, total=   5.1s
+[CV] C=20, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=20, gamma=scale, kernel=rbf, score=0.718, total=   5.3s
+[CV] C=20, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=20, gamma=scale, kernel=rbf, score=0.697, total=   5.4s
+[CV] C=30, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=30, gamma=scale, kernel=rbf, score=0.718, total=   5.7s
+[CV] C=30, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=30, gamma=scale, kernel=rbf, score=0.699, total=   5.4s
+Best params:  SVC(C=30, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='scale', kernel='rbf',
+    max_iter=-1, probability=True, random_state=None, shrinking=True, tol=0.001,
+    verbose=False)
+Train f1:  0.7084337875611461
+Test Data Shape ->  (2830, 6600)
+Confusion Matrix: 
+ [[ 288  109]
+ [ 765 1668]]
+              precision    recall  f1-score   support
+
+       False       0.27      0.73      0.40       397
+        True       0.94      0.69      0.79      2433
+
+    accuracy                           0.69      2830
+   macro avg       0.61      0.71      0.59      2830
+weighted avg       0.85      0.69      0.74      2830
+

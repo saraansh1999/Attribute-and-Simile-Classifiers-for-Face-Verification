@@ -1,0 +1,39 @@
+Trait ->  Bags Under Eyes
+Train Data Shape ->  (8644, 500)
+Positive samples ->  (4322,)
+Negative samples ->  (4322,)
+Fitting 2 folds for each of 4 candidates, totalling 8 fits
+[CV] C=5, gamma=scale, kernel=rbf ....................................
+[CV] ........ C=5, gamma=scale, kernel=rbf, score=0.743, total=  54.9s
+[CV] C=5, gamma=scale, kernel=rbf ....................................
+[CV] ........ C=5, gamma=scale, kernel=rbf, score=0.743, total=  52.6s
+[CV] C=10, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=10, gamma=scale, kernel=rbf, score=0.746, total=  54.8s
+[CV] C=10, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=10, gamma=scale, kernel=rbf, score=0.740, total=  53.5s
+[CV] C=20, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=20, gamma=scale, kernel=rbf, score=0.743, total=  54.6s
+[CV] C=20, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=20, gamma=scale, kernel=rbf, score=0.738, total=  52.8s
+[CV] C=30, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=30, gamma=scale, kernel=rbf, score=0.740, total=  53.0s
+[CV] C=30, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=30, gamma=scale, kernel=rbf, score=0.732, total=  53.3s
+Best params:  SVC(C=5, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='scale', kernel='rbf',
+    max_iter=-1, probability=True, random_state=None, shrinking=True, tol=0.001,
+    verbose=False)
+Train f1:  0.7432011834792054
+Test Data Shape ->  (2830, 6600)
+Confusion Matrix: 
+ [[ 882  200]
+ [ 506 1242]]
+              precision    recall  f1-score   support
+
+       False       0.64      0.82      0.71      1082
+        True       0.86      0.71      0.78      1748
+
+    accuracy                           0.75      2830
+   macro avg       0.75      0.76      0.75      2830
+weighted avg       0.77      0.75      0.75      2830
+

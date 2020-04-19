@@ -1,0 +1,39 @@
+Trait ->  Bushy Eyebrows
+Train Data Shape ->  (9568, 500)
+Positive samples ->  (4784,)
+Negative samples ->  (4784,)
+Fitting 2 folds for each of 4 candidates, totalling 8 fits
+[CV] C=5, gamma=scale, kernel=rbf ....................................
+[CV] ........ C=5, gamma=scale, kernel=rbf, score=0.752, total= 1.1min
+[CV] C=5, gamma=scale, kernel=rbf ....................................
+[CV] ........ C=5, gamma=scale, kernel=rbf, score=0.744, total= 1.1min
+[CV] C=10, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=10, gamma=scale, kernel=rbf, score=0.748, total= 1.1min
+[CV] C=10, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=10, gamma=scale, kernel=rbf, score=0.744, total= 1.1min
+[CV] C=20, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=20, gamma=scale, kernel=rbf, score=0.738, total= 1.1min
+[CV] C=20, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=20, gamma=scale, kernel=rbf, score=0.741, total= 1.1min
+[CV] C=30, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=30, gamma=scale, kernel=rbf, score=0.734, total= 1.4min
+[CV] C=30, gamma=scale, kernel=rbf ...................................
+[CV] ....... C=30, gamma=scale, kernel=rbf, score=0.735, total= 1.4min
+Best params:  SVC(C=5, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='scale', kernel='rbf',
+    max_iter=-1, probability=True, random_state=None, shrinking=True, tol=0.001,
+    verbose=False)
+Train f1:  0.7480399107092053
+Test Data Shape ->  (2830, 6600)
+Confusion Matrix: 
+ [[ 952  356]
+ [ 373 1149]]
+              precision    recall  f1-score   support
+
+       False       0.72      0.73      0.72      1308
+        True       0.76      0.75      0.76      1522
+
+    accuracy                           0.74      2830
+   macro avg       0.74      0.74      0.74      2830
+weighted avg       0.74      0.74      0.74      2830
+

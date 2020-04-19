@@ -33,7 +33,7 @@ args = parser.parse_args()
 
 # global variables
 ######################################################
-trait = args.trait  
+trait = " ".join(args.trait.split('_'))
 print("Trait -> ", trait)
 metric = args.metric
 sample_thresh = 1
@@ -100,9 +100,9 @@ print("Train Data Shape -> ", X_train.shape)
 print("Positive samples -> ", Y_train[Y_train == 1].shape)
 print("Negative samples -> ", Y_train[Y_train == 0].shape)
 
-param_grid = {'C': [10, 20, 30],  
+param_grid = {'C': [5, 10, 20, 30],  
               'gamma': ['scale'], 
-              'kernel': ['poly']}  
+              'kernel': ['rbf']}  
   
 svm = GridSearchCV(SVC(probability=True), param_grid, scoring=metric, refit = True, verbose = 3, cv=2) 
 
