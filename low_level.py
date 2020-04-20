@@ -8,11 +8,12 @@ from matplotlib import pyplot as plt
 import os
 import pickle
 
+
 cascPath = "./haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
 landmarkPath = "./shape_predictor_68_face_landmarks.dat"
 landmarkPredictor = dlib.shape_predictor(landmarkPath)
-VIS = False
+VIS = True
 SZ = 50
 
 def normalize(imgorig, method, range=None):
@@ -169,12 +170,13 @@ def low_level(img):
 	rx, ry, rw, rh = expand_bb(rx, ry, rw, rh, faceimg, 0.3)
 	regions["eyes"] = [rx, ry, rw, rh]
 	regions["full"] = [0, 0, faceimg.shape[1], faceimg.shape[0]]
-	del(regions["left_eye"], regions["right_eye"], regions["left_eyebrow"], regions["right_eyebrow"])
+	del(regions["left_eye"], regions["right_eye"])
 
 
 	#extracting region wise features
 	features = {}
 	for key in regions:
+		# print(key)
 		rx, ry, rw, rh = regions[key]
 		regions[key] = faceimg[ry:ry+rh, rx:rx+rw, :]
 		
@@ -195,7 +197,7 @@ def low_level(img):
 		gradOri = normalize(np.arctan2(gy, gx), "max_min", range=(-np.pi, np.pi))
 		features[key+"_gradientOrientation"] = findhist(gradOri, r)
 		
-		#visualising everything
+		# visualising everything
 		if(VIS):
 			fig, ax = plt.subplots(3, 2)
 			ax[0, 0].imshow(regions[key][:, :, ::-1])
@@ -215,32 +217,57 @@ def low_level(img):
 
 	features["gradimg"] = cv2.resize(gradMag, (SZ, SZ)).flatten()
 	features["grayimg"] = cv2.resize(gray, (SZ, SZ)).flatten()
-	if(VIS):
-		fig, ax = plt.subplots(1, 2)
-		ax[0].imshow(np.reshape(features["grayimg"], (SZ, SZ)))
-		ax[0].title.set_text("Grayscale")
-		ax[1].imshow(np.reshape(features["gradimg"], (SZ, SZ)))
-		ax[1].title.set_text("Gradient Image")
-		plt.show()
-
+	# if(VIS):
+	# 	fig, ax = plt.subplots(1, 2)
+	# 	ax[0].imshow(np.reshape(features["grayimg"], (SZ, SZ)))
+	# 	ax[0].title.set_text("Grayscale")
+	# 	ax[1].imshow(np.reshape(features["gradimg"], (SZ, SZ)))
+	# 	ax[1].title.set_text("Gradient Image")
+	# 	plt.show()
 	return features
 
 	# 250 x 2 = 500   images
 	# 100 x 4 x 4 = 4000 histograms
 
-data_dir = '../train'
-save_dir = '../train_feat'
-if not os.path.exists(save_dir):
-	os.makedirs(save_dir)
-for root, dirs, files in os.walk(data_dir):
-	for file in files:
-		fpath = os.path.join(root, file)
-		res = low_level(cv2.imread(fpath))
-		spath = os.path.join(save_dir, fpath[len(data_dir)+1:])
-		print(fpath, spath)
-		if not os.path.exists('/'.join(spath.split('/')[:-1])):
-			os.makedirs('/'.join(spath.split('/')[:-1]))
-		with open(spath, 'wb+') as f:
-			pickle.dump(res, f)
+# data_dir = '../train'
+# save_dir = '../train_feat'
+# if not os.path.exists(save_dir):
+# 	os.makedirs(save_dir)
+# for root, dirs, files in os.walk(data_dir):
+# 	for file in files:
+# 		fpath = os.path.join(root, file)
+# 		res = low_level(cv2.imread(fpath))
+# 		spath = os.path.join(save_dir, fpath[len(data_dir)+1:])
+# 		print(fpath, spath)
+# 		if not os.path.exists('/'.join(spath.split('/')[:-1])):
+# 			os.makedirs('/'.join(spath.split('/')[:-1]))
+# 		with open(spath, 'wb+') as f:
+# 			pickle.dump(res, f)
 
-# low_level(cv2.imread('Train_Set/Aishwarya_Rai_1.jpg'))
+
+
+# print(low_level(cv2.imread('./dir_009/Nicole Polizzi/1.jpg')))
+# P=os.listdir("./dir_009/Nicole Polizzi")
+# for i in P:
+# 	print('./dir_009/Nicole Polizzi/'+i)
+# 	print(cv2.imread('./dir_009/Nicole Polizzi/'+i).shape)
+# x=0
+# ix=1
+# L=np.array(os.listdir("dir_009"))
+# L=L[np.random.choice(len(L),50)]
+# for i in L:
+# 	x+=1
+# 	newname=i.replace(' ','')
+# 	os.system("mkdir ./Simile_Feat_Renew/"+newname)
+# 	P=os.listdir("./dir_009/"+i)
+# 	jx=1
+# 	for j in P:
+# 		print(ix,jx)
+# 		try:
+# 			name="./dir_009/"+i+"/"+j
+# 			features=low_level(cv2.imread(name))
+# 			np.save("./Simile_Feat_Renew"+newname+"/"+j.strip('.jpg'),features)
+# 		except:
+# 			pass
+# 		jx+=1		
+# 	ix+=1	
