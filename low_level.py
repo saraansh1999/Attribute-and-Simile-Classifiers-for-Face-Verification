@@ -246,28 +246,28 @@ def low_level(img):
 
 
 
-# print(low_level(cv2.imread('./dir_009/Nicole Polizzi/1.jpg')))
-# P=os.listdir("./dir_009/Nicole Polizzi")
-# for i in P:
-# 	print('./dir_009/Nicole Polizzi/'+i)
-# 	print(cv2.imread('./dir_009/Nicole Polizzi/'+i).shape)
-# x=0
-# ix=1
-# L=np.array(os.listdir("dir_009"))
-# L=L[np.random.choice(len(L),50)]
-# for i in L:
-# 	x+=1
-# 	newname=i.replace(' ','')
-# 	os.system("mkdir ./Simile_Feat_Renew/"+newname)
-# 	P=os.listdir("./dir_009/"+i)
-# 	jx=1
-# 	for j in P:
-# 		print(ix,jx)
-# 		try:
-# 			name="./dir_009/"+i+"/"+j
-# 			features=low_level(cv2.imread(name))
-# 			np.save("./Simile_Feat_Renew"+newname+"/"+j.strip('.jpg'),features)
-# 		except:
-# 			pass
-# 		jx+=1		
-# 	ix+=1	
+print(low_level(cv2.imread('./dir_009/Nicole Polizzi/1.jpg')))
+P=os.listdir("./dir_009/Nicole Polizzi")
+for i in P:
+	print('./dir_009/Nicole Polizzi/'+i)
+	print(cv2.imread('./dir_009/Nicole Polizzi/'+i).shape)
+x=0
+ix=1
+L=np.array(os.listdir("dir_009"))
+L=L[np.random.choice(len(L),50)]
+for i in L:
+	x+=1
+	newname=i.replace(' ','')
+	os.system("mkdir ./Simile_Feat_Renew/"+newname)
+	P=os.listdir("./dir_009/"+i)
+	jx=1
+	for j in P:
+		print(ix,jx)
+		try:
+			name="./dir_009/"+i+"/"+j
+			features=low_level(cv2.imread(name))
+			np.save("./Simile_Feat_Renew"+newname+"/"+j.strip('.jpg'),features)
+		except:
+			pass
+		jx+=1		
+	ix+=1	

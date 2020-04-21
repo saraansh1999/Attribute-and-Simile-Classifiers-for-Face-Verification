@@ -76,7 +76,7 @@ Y_test=np.concatenate([Y3,PP1])
 
 
 # print("wegggggggggggggggggggggg")
-print(X_train.shape,Y_train.shape,X_test.shape,Y_test.shape)
+print(PP.shape,X_train.shape,Y_train.shape,X_test.shape,Y_test.shape)
 # X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
 
 # Training
