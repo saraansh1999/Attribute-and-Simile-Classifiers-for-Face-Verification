@@ -1,6 +1,6 @@
 import os
 
-Dir="train_feat"
+Dir="test_feat"
 X=os.listdir(Dir)
 print(len(X))
 mul,pairs=0,0
