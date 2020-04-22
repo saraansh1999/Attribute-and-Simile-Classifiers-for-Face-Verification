@@ -1,0 +1,247 @@
+Trait -> Mustache
+==> Options: Namespace(att_file='/scratch/saraansh/Attribute-and-Simile-Classifiers-for-Face-Verification/attr.pkl', batch_size=128, gamma=0.1, lr=0.001, model='CNN', num_epochs=50, sample_thresh=0.75, save_path='/scratch/CNN_neural_net_att_Mustache', step_size=12, test_dir='/scratch/saraansh/Attribute-and-Simile-Classifiers-for-Face-Verification/test', testbatch_size=128, train_dir='/scratch/saraansh/Attribute-and-Simile-Classifiers-for-Face-Verification/train', trait='Mustache', weight_decay=4e-05, workers=10)
+Using GPU: True
+train /scratch/saraansh/Attribute-and-Simile-Classifiers-for-Face-Verification/train 3082
+train Positive ->  1321
+train Negative ->  1761
+test /scratch/saraansh/Attribute-and-Simile-Classifiers-for-Face-Verification/test 2830
+test Positive ->  286
+test Negative ->  2544
+CNNNet(
+  (features): Sequential(
+    (0): Conv2d(3, 32, kernel_size=(3, 3), stride=(2, 2))
+    (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU()
+    (3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (4): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2))
+    (5): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): ReLU()
+    (7): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (8): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2))
+    (9): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (10): ReLU()
+  )
+  (classifier): Sequential(
+    (0): Linear(in_features=4608, out_features=1024, bias=True)
+    (1): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU()
+    (3): Linear(in_features=1024, out_features=128, bias=True)
+    (4): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (5): ReLU()
+    (6): Linear(in_features=128, out_features=2, bias=True)
+  )
+)
+Epoch 0/49
+----------
+==================================================================================
+Train Loss:  tensor(0.6531, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 1/49
+----------
+==================================================================================
+Train Loss:  tensor(0.4139, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 2/49
+----------
+==================================================================================
+Train Loss:  tensor(0.3322, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 3/49
+----------
+==================================================================================
+Train Loss:  tensor(0.2006, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 4/49
+----------
+==================================================================================
+Train Loss:  tensor(0.1935, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 5/49
+----------
+==================================================================================
+Train Loss:  tensor(0.1943, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 6/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0876, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 7/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0357, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 8/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0152, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 9/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0063, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 10/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0041, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 11/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0027, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 12/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0023, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 13/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0020, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 14/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0664, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 15/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0192, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 16/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0105, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 17/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0067, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 18/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0046, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 19/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0043, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 20/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0032, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 21/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0026, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 22/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0026, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 23/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0025, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 24/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0034, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 25/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0027, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 26/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0212, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 27/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0025, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 28/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0027, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 29/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0027, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 30/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0036, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 31/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0025, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 32/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0025, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 33/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0319, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 34/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0025, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 35/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0037, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 36/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0026, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 37/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0023, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 38/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0025, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 39/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0024, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 40/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0033, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 41/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0032, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 42/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0029, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 43/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0025, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 44/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0342, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 45/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0023, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 46/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0022, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 47/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0028, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 48/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0053, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch 49/49
+----------
+==================================================================================
+Train Loss:  tensor(0.0025, device='cuda:0', grad_fn=<DivBackward0>)
+==> Saving models ...
+Creating Directory:  /scratch/CNN_neural_net_att_Mustache/models
+Confusion Matrix -> 
+[[2086  458]
+ [  76  210]]
+              precision    recall  f1-score   support
+
+           0       0.96      0.82      0.89      2544
+           1       0.31      0.73      0.44       286
+
+    accuracy                           0.81      2830
+   macro avg       0.64      0.78      0.66      2830
+weighted avg       0.90      0.81      0.84      2830
+
