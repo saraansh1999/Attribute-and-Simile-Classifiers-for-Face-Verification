@@ -21,7 +21,7 @@ ATC=os.listdir("./Att_Classifiers")
 
 for i in SLC:
 	with open('./Simile_Classifiers/'+i, 'rb') as f:
-    	CL_S.append(pickle.load(f))
+    	CL_S.append(pickle.load(f),)
 
 for i in ATC:
 	with open('./Att_Classifiers/'+i, 'rb') as f:
@@ -50,8 +50,9 @@ for img in P:
 				if x<15 and x>=10:
 					Rep3=np.concatenate([Rep3,feat[key]])
 				x+=1
+
 		i,Feature_Rep=[],[]
-		for i in CL_F:
+		for i in CL_S:
 			Feature_Rep.append(i.predict_proba([Rep])[0][0])
 		for i in CL_A:
 			Feature_Rep.append(i.predict_proba([Rep1])[0][0])

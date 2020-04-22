@@ -41,10 +41,9 @@ Rand=images[np.random.choice(images.shape[0],1000)]
 for i in range(0,1000,2):
 	A=os.listdir("./test/"+Rand[i])
 	B=os.listdir("./test/"+Rand[i+1])
-
 	f1,f2=Rand[i]+"/"+A[random.randint(0,len(A)-1)],Rand[i+1]+"/"+B[random.randint(0,len(B)-1)]
+	Test_Pairs.append([f1,f2,0])
 
-	Train_Pairs.append([f1,f2,0])
 for img_fol in images:
 	fils=np.array(os.listdir("./test/"+(img_fol)))
 	if fils.shape[0]==2:
@@ -55,30 +54,68 @@ for img_fol in images:
 		Test_Pairs.append([img_fol+"/"+t[2],img_fol+"/"+t[3],1])
 
 
-# Train_Pairs=np.array(Train_Pairs)
-# Test_Pairs=np.array(Test_Pairs)
-# print(Train_Pairs.shape,Test_Pairs.shape)
-# print(Train_Pairs[0],Test_Pairs[0])
 
 def op(X1,X2):
-	return np.concatenate[np.abs(X1-X2),np.sqrt(X1*X2),(X1+X2)/2]
+	return np.concatenate([np.abs(X1-X2),np.sqrt(X1*X2),(X1+X2)/2])
 
+
+
+print("Test and Train Pairs are Ready")
+print("##################################################################################################################")
 
 X_Train,Y_Train,Y_Test,X_Test=[],[],[],[]
 
 for i in Train_Pairs:
 	Y_Train.append(int(i[2]))
-	f1=np.load("./Final_Features/"+i[0],allow_pickle='TRUE').item()	
-	f2=np.load("./Final_Features/"+i[1],allow_pickle='TRUE').item()	
+	nm1=("./Final_Features/"+i[0]).replace('jpg','npy')
+	# print(nm1)
+	nm2=("./Final_Features/"+i[1]).replace('jpg','npy')
+	f1=np.load(nm1,allow_pickle='TRUE')	
+	f2=np.load(nm2,allow_pickle='TRUE')	
 	X_Train.append(op(f1,f2))
 
 for i in Test_Pairs:
 	Y_Test.append(int(i[2]))
-	f1=np.load("./Final_Features/"+i[0],allow_pickle='TRUE').item()	
-	f2=np.load("./Final_Features/"+i[1],allow_pickle='TRUE').item()	
+	nm1=("./Final_Features/"+i[0]).replace('jpg','npy')
+	nm2=("./Final_Features/"+i[1]).replace('jpg','npy')
+	f1=np.load(nm1,allow_pickle='TRUE')	
+	f2=np.load(nm2,allow_pickle='TRUE')	
 	X_Test.append(op(f1,f2))
 
 X_Train=np.array(X_Train)
 X_Test=np.array(X_Test)
 Y_Train=np.array(Y_Train)
 Y_Test=np.array(Y_Test)
+
+
+print("Test and Train Sets are now Ready")
+print("##################################################################################################################")
+
+print("Train Data Shape -> ", X_Train.shape)
+print("Positive samples -> ", Y_Train[Y_Train == 1].shape)
+print("Negative samples -> ", Y_Train[Y_Train == 0].shape)
+
+param_grid = {'C': [5, 10, 20, 30],  
+              'gamma': ['scale'], 
+              'kernel': ['rbf']}  
+  
+svm = GridSearchCV(SVC(probability=True), param_grid, refit = True, verbose = 3, cv=2) 
+
+svm.fit(X_Train,Y_Train)
+
+print("Best params: ", svm.best_estimator_)
+print("Train : ", svm.best_score_)
+######################################################
+
+# saving model
+######################################################
+with open("./Final_Verification_Classifier.pkl", 'wb') as f:
+	pickle.dump(svm, f)
+######################################################
+
+# Testing
+######################################################
+print("Test Data Shape -> ", X_Test.shape)
+Y_pred = svm.predict(X_Test)
+print("Confusion Matrix: \n", confusion_matrix(Y_Test, Y_pred))
+print(classification_report(Y_Test, Y_pred))
