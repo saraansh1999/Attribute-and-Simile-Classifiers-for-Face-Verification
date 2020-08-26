@@ -1,4 +1,3 @@
 # Attribute-and-Simile-Classifiers-for-Face-Verification
 
-To run attribute classifier:
-`bash run_att_clf.sh <Trait>`
+Link to presentation: https://drive.google.com/file/d/1FceYlTHVxqdlX12sN_i7tGAjMKsmNq96/view?usp=sharing
